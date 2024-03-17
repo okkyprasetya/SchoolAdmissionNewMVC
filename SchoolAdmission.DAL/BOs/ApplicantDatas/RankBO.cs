@@ -12,5 +12,8 @@ namespace SchoolAdmission.DAL.BOs.ApplicantDatas
         public int RegistrationID { get; set; }
         public string? Name { get; set; }
         public int TotalScore { get; set; }
+
+        public string status { get; set; }
+        public UserBO User { get; set; }
     }
 }

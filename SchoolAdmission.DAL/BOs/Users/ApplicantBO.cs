@@ -11,7 +11,7 @@ namespace SchoolAdmission.DAL.BOs.Users
     public class ApplicantBO
     {
         public int UGDataID { get; set; }
-        public int UserID { get; set; }
+        public UserBO User { get; set; }
         public string? NIS { get; set; }
         public string? DateBirth { get; set; }
         public bool isScholarship { get; set; }

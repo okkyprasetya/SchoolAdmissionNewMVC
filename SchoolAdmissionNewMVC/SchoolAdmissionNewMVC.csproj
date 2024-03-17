@@ -13,4 +13,12 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolAdmission.BLL\SchoolAdmission.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Admin\" />
+  </ItemGroup>
+
 </Project>

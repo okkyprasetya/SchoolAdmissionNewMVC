@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace SchoolAdmission.DAL
 {
-    public class VerificatorDAL : IVerificator,IUser
+    public class VerificatorDAL : IVerificatorsDAL,IUsersDAL
     {
         private string GetConnectionString()
         {
@@ -55,13 +55,14 @@ namespace SchoolAdmission.DAL
             }
         }
 
-        public void finalizeLeaderboard()
+        public void finalizeLeaderboard(int quota)
         {
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
                 using (SqlCommand command = new SqlCommand("dbo.finalizeLeaderboard", conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@quota", quota);
 
                     conn.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -253,6 +254,11 @@ namespace SchoolAdmission.DAL
         }
 
         public IEnumerable<UserBO> getAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        UserBO IUsersDAL.login(string email, string password)
         {
             throw new NotImplementedException();
         }

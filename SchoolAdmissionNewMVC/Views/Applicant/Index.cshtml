@@ -1,0 +1,368 @@
+﻿@using SchoolAdmission.BLL.DTOs.ApplicantDTO
+@{
+    ViewData["Title"] = "Home Page";
+    @model IEnumerable<ApplicantsDTO>
+
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="menu-text fw-bold">Applicant Tables</h4>
+    <!-- Basic Bootstrap Table -->
+    @Html.Raw(ViewData["message"])
+
+    <div class="card">
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Applicant ID</th>
+                        <th>Name</th>
+                        <th>NIS</th>
+                        <th>Scholarship</th>
+                        <th>Status</th>
+                        <th>Academic Data</th>
+                        <th>Personal Data</th>
+                        <th>Achievement Records</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var applicant in Model)
+                    {
+                        <tr>
+                            <td>@applicant.UGDataID</td>
+                            <td>@applicant.Users.FirstName @applicant.Users.MiddleName @applicant.Users.LastName </td>
+                            <td>@applicant.NIS</td>
+                            <td>
+                                @applicant.Scholarship.Name
+                            </td>
+                            <td>
+                                @if (applicant.isFinal == false)
+                                {
+                                    <span class="badge bg-label-warning me-1">Not Final</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-label-success me-1">Finalized</span>
+                                }
+                            </td>
+                            <td align="center">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#showAcademicData" onclick="populateAcademicDataModal(@applicant.UGDataID)">Info</button>
+                            </td>
+                            <td align="center">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#showPersonalData" onclick="populatePersonalDataModal(@applicant.UGDataID)">Info</button>
+                            </td>
+                            <td align="center">
+                                <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#showAchievementData" onclick="populateAchievementDataModal(@applicant.UGDataID)">Info</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showAchievementData" tabindex="-1" aria-labelledby="showAchievementDataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showAchievementData">Achievement Records Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="card shadow-none bg-transparent border border-primary">
+
+                            <div class="card-body text-primary">
+                                <h5 class="card-title">Primary card title</h5>
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                                </p>
+                                <p>
+                                    Level
+                                </p>
+                                <p>
+                                   Score 
+                                </p>
+                                <p>
+                                    Status
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-success" onclick="verifyAcademicDatas(document.getElementById('keyData').value)"><i class="bx bx-badge-check"></i>Verify</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showAcademicData" tabindex="-1" aria-labelledby="showAcademicDataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showAcademicData">Academic Data Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" id="keyData" name="UGDataID" value=""/>
+                        <label for="RaportSummaries" class="form-label">Raport Summaries</label>
+                        <input type="text" class="form-control" id="RaportSummaries" name="RaportSummariesT" readonly disabled>
+                        <br/>
+                        <label for="RaportDocument" class="form-label">Raport Document</label>
+                        <input type="text" class="form-control" id="RaportDocument" name="RaportSummariesT" readonly disabled>
+                        <br />
+                        <label for="isVerifiedBadge" class="form-label">Status</label>
+                        <span id="isVerifiedBadge" class="badge bg-label-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-success" onclick="verifyAcademicDatas(document.getElementById('keyData').value)"><i class="bx bx-badge-check"></i>Verify</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="showPersonalData" tabindex="-1" aria-labelledby="showPersonalDataLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showPersonalData">Personal Data Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="text" id="keyData1" name="UPDataID" value="" hidden />
+                        <label for="RaportSummaries" class="form-label">Father Name</label>
+                        <input type="text" class="form-control" id="FatherName" name="FatherName" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Father Address</label>
+                        <input type="text" class="form-control" id="FatherAddress" name="FatherAddress" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Father Job</label>
+                        <input type="text" class="form-control" id="FatherJob" name="FatherJob" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Father Salary</label>
+                        <input type="text" class="form-control" id="FatherSalary" name="FatherSalary" readonly disabled>
+                        <br/>
+                        <label for="RaportSummaries" class="form-label">Mother Name</label>
+                        <input type="text" class="form-control" id="MotherName" name="MotherName" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Mother Address</label>
+                        <input type="text" class="form-control" id="MotherAddress" name="MotherAddress" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Mother Job</label>
+                        <input type="text" class="form-control" id="MotherJob" name="MotherJob" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Mother Salary</label>
+                        <input type="text" class="form-control" id="MotherSalary" name="MotherSalary" readonly disabled>
+                        <br />
+                        <input type="text" id="keyData" name="UGDataID" value="" hidden />
+                        <label for="RaportSummaries" class="form-label">Sibling Numbers</label>
+                        <input type="text" class="form-control" id="SiblingNumbers" name="SiblingNumbers" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Hobby</label>
+                        <input type="text" class="form-control" id="Hobby" name="Hobby" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">Birth Document</label>
+                        <input type="text" class="form-control" id="BirthDocument" name="BirthDocument" readonly disabled>
+                        <br />
+                        <label for="RaportDocument" class="form-label">KK Document</label>
+                        <input type="text" class="form-control" id="KKDocument" name="KKDocument" readonly disabled>
+                        <br />
+                        <label for="isVerifiedBadge" class="form-label">Status</label>
+                        <span id="isVerifiedBadge1" class="badge bg-label-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-success" onclick="verifyPersonalDatas(document.getElementById('keyData1').value)"><i class="bx bx-badge-check"></i>Verify</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function populateAcademicDataModal(UGDataID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/Applicant/GetAcademicDataDetails?UGDataID=' + UGDataID, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        var academicData = response.academicData
+                        document.getElementById('RaportSummaries').value = academicData.raportSummaries;
+                        document.getElementById('RaportDocument').value = academicData.raportDocument;
+                        document.getElementById('keyData').value = academicData.uaDataID;
+                        
+                        var badge = document.getElementById('isVerifiedBadge');
+                        badge.innerText = academicData.isVerified ? 'Verified' : 'Not Verified Yet';
+                        badge.classList.remove('bg-label-danger', 'bg-label-success');
+                        badge.classList.add(academicData.isVerified ? 'bg-label-success' : 'bg-label-danger');
+
+                    } else {
+                        alert(response.errorMessage);
+                    }
+                } else {
+                    alert('Error: ' + xhr.statusText);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    function populatePersonalDataModal(UGDataID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/Applicant/GetPersonalDataDetails?UGDataID=' + UGDataID, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        var PersonalData = response.personalData
+                        document.getElementById('keyData1').value = PersonalData.upDataID;
+                        document.getElementById('FatherName').value = PersonalData.fatherName;
+                        document.getElementById('FatherAddress').value = PersonalData.fatherAddress;
+                        document.getElementById('FatherJob').value = PersonalData.fatherJob;
+                        document.getElementById('FatherSalary').value = PersonalData.fatherSalary;
+                        document.getElementById('MotherName').value = PersonalData.motherName;
+                        document.getElementById('MotherAddress').value = PersonalData.motherAddress;
+                        document.getElementById('MotherJob').value = PersonalData.motherJob;
+                        document.getElementById('MotherSalary').value = PersonalData.motherSalary;
+                        document.getElementById('SiblingNumbers').value = PersonalData.siblingsNumbers;
+                        document.getElementById('Hobby').value = PersonalData.hobi;
+                        document.getElementById('KKDocument').value = PersonalData.kkDocument;
+                        document.getElementById('BirthDocument').value = PersonalData.birthDocument;
+                        
+
+                        var badge = document.getElementById('isVerifiedBadge1');
+                        badge.innerText = PersonalData.isVerified ? 'Verified' : 'Not Verified Yet';
+                        badge.classList.remove('bg-label-danger', 'bg-label-success');
+                        badge.classList.add(PersonalData.isVerified ? 'bg-label-success' : 'bg-label-danger');
+
+                    } else {
+                        alert(response.errorMessage);
+                    }
+                } else {
+                    alert('Error: ' + xhr.statusText);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    function populateAchievementDataModal(UGDataID) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/Applicant/GetAchievementRecords?UGDataID=' + UGDataID, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        var achievementRecords = response.achievementRecords;
+                        var cardBody = document.querySelector('.modal-body .card .card-body');
+                        cardBody.innerHTML = '';
+
+                        if (achievementRecords && achievementRecords.length > 0) {
+                            achievementRecords.forEach(record => {
+                                var cardTitle = document.createElement('h5');
+                                cardTitle.className = 'card-title';
+                                cardTitle.textContent = record.title; // Updated property name
+
+                                var cardText = document.createElement('p');
+                                cardText.className = 'card-text';
+                                cardText.textContent = record.description; // Updated property name
+
+                                var scoreText = document.createElement('p');
+                                scoreText.textContent = 'Score: ' + record.score; // Updated property name
+
+                                var levelText = document.createElement('p');
+                                levelText.textContent = record.level; 
+
+                                var verificationStatusSpan = document.createElement('span');
+                                verificationStatusSpan.className = 'badge';
+                                if (record.isVerified) {
+                                    verificationStatusSpan.classList.add('bg-label-success');
+                                    verificationStatusSpan.textContent = 'Verified';
+                                } else {
+                                    verificationStatusSpan.classList.add('bg-label-danger');
+                                    verificationStatusSpan.textContent = 'Not Verified Yet';
+                                }
+
+                                // Create container for verification status and verify button
+                                var verificationContainer = document.createElement('div');
+                                verificationContainer.className = 'verification-container';
+                                verificationContainer.appendChild(verificationStatusSpan);
+
+                                // Create and append the "Verify" button
+
+                                // Append all elements to the card body
+                                cardBody.appendChild(cardTitle);
+                                cardBody.appendChild(cardText);
+                                cardBody.appendChild(scoreText);
+                                cardBody.appendChild(levelText);
+                                cardBody.appendChild(verificationContainer);
+                            });
+                        } else {
+                            cardBody.textContent = 'No achievement records found.';
+                        }
+                    } else {
+                        alert(response.ErrorMessage || 'Failed to fetch achievement records');
+                    }
+                } else {
+                    alert('Error: ' + xhr.statusText);
+                }
+            }
+        };
+        xhr.send();
+    }
+
+
+
+    function verifyAcademicDatas(UGDataID) {
+        // Parse userId to an integer
+        UGDataID = parseInt(UGDataID);
+
+        if (!isNaN(UGDataID)) {
+            if (confirm('Verify this data ?')) {
+                // Construct the URL with the UserID parameter
+                var url = '/Applicant/VerifyAcademicData/' + UGDataID;
+
+                // Redirect to the constructed URL
+                window.location.href = url;
+            }
+        } else {
+            console.error('Invalid UADataID:', UGDataID);
+        }
+    }
+
+    function verifyPersonalDatas(UGDataID) {
+        // Parse userId to an integer
+        UGDataID = parseInt(UGDataID);
+
+        if (!isNaN(UGDataID)) {
+            if (confirm('Verify this data ?')) {
+                // Construct the URL with the UserID parameter
+                var url = '/Applicant/VerifyPersonalData/' + UGDataID;
+
+                // Redirect to the constructed URL
+                window.location.href = url;
+            }
+        } else {
+            console.error('Invalid UPDataID:', UGDataID);
+        }
+    }
+</script>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolAdmission.DAL.BOs.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,6 @@ namespace SchoolAdmission.DAL.BOs.ApplicantDatas
         public string? AchievementDocument { get; set; }
         public int AchievementScore { get; set; }
         public bool isVerified { get; set; }
+        public ApplicantBO? Applicant { get; set; }
     }
 }

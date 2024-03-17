@@ -5,9 +5,9 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolAdmissionNewMVC", "SchoolAdmissionNewMVC\SchoolAdmissionNewMVC.csproj", "{8661A0D7-65B0-4E42-AF85-DE4805CF80A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolAdmission.DAL", "SchoolAdmission.DAL\SchoolAdmission.DAL.csproj", "{4FB8D46D-4253-4E5E-B8F2-606F7AD39D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolAdmission.DAL", "SchoolAdmission.DAL\SchoolAdmission.DAL.csproj", "{4FB8D46D-4253-4E5E-B8F2-606F7AD39D6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolAdmission.BLL", "SchoolAdmission.BLL\SchoolAdmission.BLL.csproj", "{CD472E0D-B330-46E9-A401-69E4616BA440}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolAdmission.BLL", "SchoolAdmission.BLL\SchoolAdmission.BLL.csproj", "{CD472E0D-B330-46E9-A401-69E4616BA440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

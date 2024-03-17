@@ -1,0 +1,67 @@
+﻿@using SchoolAdmission.BLL.DTOs.ApplicantDTO
+@{
+    ViewData["Title"] = "Home Page";
+    @model List<RankDTO>
+}
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="menu-text fw-bold">Leaderboard</h4>
+    <!-- Basic Bootstrap Table -->
+    @Html.Raw(ViewData["message"])
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addJumlahKuota">
+        Finalize Leaderboard
+    </button>
+    <div class="card">
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Registration ID</th>
+                        <th>Name</th>
+                        <th>Total Score</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var rank in Model)
+                    {
+                        <tr>
+                            <td>@rank.Rank</td>
+                            <td>@rank.RegistrationID</td>
+                            <td>@rank.Name </td>
+                            <td>@rank.TotalScore</td>
+                            <td>@rank.status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addJumlahKuota" tabindex="-1" aria-labelledby="addVerificatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addVerificatorModalLabel">Enter amount of accepted applicant</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/Rank/finalizeRank">
+                <div class="modal-body">
+                    <!-- Add your form elements for adding Verificator here -->
+                    <!-- Example: -->
+                    <div class="mb-3">
+                        <label for="verificatorName" class="form-label">Quota</label>
+                        <input type="text" class="form-control" id="verificatorFirstName" name="quota">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
