@@ -18,6 +18,19 @@ namespace SchoolAdmissionNewMVC.Controllers
 
         public IActionResult Index()
         {
+            var userRole = HttpContext.Session.GetInt32("RoleID");
+            var userName = HttpContext.Session.GetString("UserName");
+            var roleName = HttpContext.Session.GetString("UserRole");
+
+            if(userRole == 0 || userRole == 2)
+            {
+                return RedirectToAction("Index", "User");
+            }
+            if(userRole == 1)
+            {
+                return RedirectToAction("Index", "Applicant");
+            }
+
             if (TempData["message"] != null)
             {
                 ViewData["message"] = TempData["message"];

@@ -308,6 +308,7 @@ namespace SchoolAdmission.BLL
                     FirstName = user.FirstName,
                     Role = new RoleDTO
                     {
+                        RoleId= user.Role.RoleId,
                         RoleName = user.Role.RoleName
                     }
                 };
