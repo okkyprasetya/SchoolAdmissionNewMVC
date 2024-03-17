@@ -16,6 +16,15 @@ namespace SchoolAdmissionNewMVC.Controllers
         }
         public IActionResult Index()
         {
+            var userRole = HttpContext.Session.GetInt32("RoleID");
+            var userName = HttpContext.Session.GetString("UserName");
+            var roleName = HttpContext.Session.GetString("UserRole");
+
+            if (userRole is null || userRole == 2)
+            {
+                return RedirectToAction("Index", "User");
+            }
+
             var model = _adminBLL.GetRank();
             return View(model);
         }

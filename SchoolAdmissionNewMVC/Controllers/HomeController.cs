@@ -22,7 +22,8 @@ namespace SchoolAdmissionNewMVC.Controllers
             var userName = HttpContext.Session.GetString("UserName");
             var roleName = HttpContext.Session.GetString("UserRole");
 
-            if(userRole == 0 || userRole == 2)
+
+            if(userRole is null || userRole == 2)
             {
                 return RedirectToAction("Index", "User");
             }
