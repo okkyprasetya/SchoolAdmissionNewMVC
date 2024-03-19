@@ -83,12 +83,12 @@
                                     Level
                                 </p>
                                 <p>
-                                   Score 
+                                    Score
                                 </p>
                                 <p>
                                     Status
                                 </p>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -112,10 +112,10 @@
             <form method="post" action="">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" id="keyData" name="UGDataID" value=""/>
+                        <input type="text" id="keyData" name="UGDataID" value="" hidden />
                         <label for="RaportSummaries" class="form-label">Raport Summaries</label>
                         <input type="text" class="form-control" id="RaportSummaries" name="RaportSummariesT" readonly disabled>
-                        <br/>
+                        <br />
                         <label for="RaportDocument" class="form-label">Raport Document</label>
                         <input type="text" class="form-control" id="RaportDocument" name="RaportSummariesT" readonly disabled>
                         <br />
@@ -125,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a class="btn btn-success" onclick="verifyAcademicDatas(document.getElementById('keyData').value)"><i class="bx bx-badge-check"></i>Verify</a>
+                    <a class="btn btn-success" id="va" onclick="verifyAcademicDatas(document.getElementById('keyData').value)"> <i class="bx bx-badge-check"> </i>Verify</a>
                 </div>
             </form>
         </div>
@@ -154,7 +154,7 @@
                         <br />
                         <label for="RaportDocument" class="form-label">Father Salary</label>
                         <input type="text" class="form-control" id="FatherSalary" name="FatherSalary" readonly disabled>
-                        <br/>
+                        <br />
                         <label for="RaportSummaries" class="form-label">Mother Name</label>
                         <input type="text" class="form-control" id="MotherName" name="MotherName" readonly disabled>
                         <br />
@@ -186,7 +186,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a class="btn btn-success" onclick="verifyPersonalDatas(document.getElementById('keyData1').value)"><i class="bx bx-badge-check"></i>Verify</a>
+                    <a class="btn btn-success" id="va1" onclick="verifyPersonalDatas(document.getElementById('keyData1').value)"><i class="bx bx-badge-check"></i>Verify</a>
                 </div>
             </form>
         </div>
@@ -207,7 +207,16 @@
                         document.getElementById('RaportSummaries').value = academicData.raportSummaries;
                         document.getElementById('RaportDocument').value = academicData.raportDocument;
                         document.getElementById('keyData').value = academicData.uaDataID;
+
+                        if (academicData.isVerified == true) {
+                            $("#va").hide()
+                        }
+                        if (academicData.isVerified == false) {
+                            $("#va").show()
+                        }
+                          
                         
+
                         var badge = document.getElementById('isVerifiedBadge');
                         badge.innerText = academicData.isVerified ? 'Verified' : 'Not Verified Yet';
                         badge.classList.remove('bg-label-danger', 'bg-label-success');
@@ -246,12 +255,20 @@
                         document.getElementById('Hobby').value = PersonalData.hobi;
                         document.getElementById('KKDocument').value = PersonalData.kkDocument;
                         document.getElementById('BirthDocument').value = PersonalData.birthDocument;
-                        
+
+                       
 
                         var badge = document.getElementById('isVerifiedBadge1');
                         badge.innerText = PersonalData.isVerified ? 'Verified' : 'Not Verified Yet';
                         badge.classList.remove('bg-label-danger', 'bg-label-success');
                         badge.classList.add(PersonalData.isVerified ? 'bg-label-success' : 'bg-label-danger');
+
+                        if (PersonalData.isVerified == true) {
+                            $("#va1").hide()
+                        }
+                        if (PersonalData.isVerified == false) {
+                            $("#va1").show()
+                        }
 
                     } else {
                         alert(response.errorMessage);
@@ -290,7 +307,7 @@
                                 scoreText.textContent = 'Score: ' + record.score; // Updated property name
 
                                 var levelText = document.createElement('p');
-                                levelText.textContent = record.level; 
+                                levelText.textContent = record.level;
 
                                 var verificationStatusSpan = document.createElement('span');
                                 verificationStatusSpan.className = 'badge';

@@ -20,5 +20,6 @@ namespace SchoolAdmission.DAL.Interfaces
         AcademicDataBO getAcademicDataByID(int UGDataID);
         PersonalDataBO getPersonalDataByID(int UGDataID);
         List<AchievementRecordsBO> GetAchievementRecords(int UGDataID);
+
     }
 }
